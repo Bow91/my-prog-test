@@ -1,0 +1,13 @@
+.app-list {
+    display: -webkit-flex; 
+    -webkit-flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    margin-top: 30px;
+    background-color: #3d5a80;
+    border-radius: 4px;
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, .15);
+    color: #fff;
+    max-height: 350px;
+}
