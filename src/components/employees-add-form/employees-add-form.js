@@ -7,7 +7,7 @@ const EmployeesAddForm = () => {
             <form className="add-form d-flex">
                 <input type="text"
                         className="form-control new-post-label"
-                        placeholder="Введите имя" />
+                        placeholder="Введите имя и фамилию" />
                 <input type="text"
                         className="form-control new-post-label"
                         placeholder="З/П в $" />
