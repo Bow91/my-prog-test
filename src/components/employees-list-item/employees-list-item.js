@@ -17,14 +17,13 @@ class EmployeesListItem extends Component {
     }
 
     onStar = () => {
-        console.log('s');
         this.setState(({star}) => ({
             star: !star
         }))
     }
 
     render(){
-        const {name, salary} = this.props;
+        const {name, salary, onDelete} = this.props;
         const {increase, star} = this.state;
 
         let incrClass = increase ? ' increase' : '';
@@ -40,7 +39,8 @@ class EmployeesListItem extends Component {
                             <i className="fas fa-cookie" onClick={this.onIncrease} />
                     </button>
                     <button type="button"
-                        className="btn-trash btn-sm">
+                        className="btn-trash btn-sm"
+                        onClick={onDelete}>
                             <i className="fas fa-trash" />
                     </button>
                     <i className="fa fa-star"></i>
