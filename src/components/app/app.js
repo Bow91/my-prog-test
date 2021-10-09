@@ -46,23 +46,23 @@ class App extends Component {
     })
   }
 
-  onToggleIncrease = (id) => {
-    this.setState(({data}) => {
-      const index = data.findIndex(elem => elem.id === id),
-            old = data[index],
-            newItem = {...old, increase: !old.increase},
-            newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+  // onToggleIncrease = (id) => {
+  //   this.setState(({data}) => {
+  //     const index = data.findIndex(elem => elem.id === id),
+  //           old = data[index],
+  //           newItem = {...old, increase: !old.increase},
+  //           newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
       
-      return {
-        data: newArr
-      }
-    })
-  }
+  //     return {
+  //       data: newArr
+  //     }
+  //   })
+  // }
 
-  onToggleStar = (id) => {
+  onToggleProp = (id, prop) => {
     this.setState(({data}) => ({
       data: data.map(item => {
-        if (item.id === id) {return {...item, star: !item.star}} 
+        if (item.id === id) {return {...item, [prop]: !item[prop]}} 
         return item;      
       })
     }))
@@ -85,8 +85,7 @@ class App extends Component {
         <EmployeesList 
           data = {this.state.data} 
           onDelete = {this.deleteItem} 
-          onToggleIncrease = {this.onToggleIncrease}
-          onToggleStar = {this.onToggleStar} />
+          onToggleProp = {this.onToggleProp} />
         <EmployeesAddForm onAddEmployees = {this.addEmployees} />
       </div>
     );
