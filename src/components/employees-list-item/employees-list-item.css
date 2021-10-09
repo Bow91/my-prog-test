@@ -33,6 +33,10 @@
 }
 
 .list-group-item .btn-cookie {
+    color: #a1a19e;
+}
+
+.list-group-item .btn-cookie.increase {
     color: #e09f3e;
 }
 
