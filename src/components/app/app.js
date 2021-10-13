@@ -86,7 +86,6 @@ class App extends Component {
   }
 
   onSalary = (id, salarys) => {
-    console.log(salarys.match(/\w/gi).join('') + '  -  ' + id);
     this.setState(({data}) => ({
       data: data.map(elem => {
         if (elem.id === id) {
