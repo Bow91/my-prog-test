@@ -12,6 +12,13 @@
 }
 
 .add-form input {
-    width: 350px;
+    max-width: 350px;
     margin-right: 20px;
 }
+/* 
+@media screen and (max-width: 500px) {
+    .d-flex {
+        display: inline-flex;
+        flex-wrap: wrap;
+    }
+} */

@@ -19,7 +19,7 @@ class EmployeesAddForm extends Component {
 
     render() {
         let {name, salary} = this.state,
-              {onAddEmployees} = this.props;
+            {onAddEmployees} = this.props;
         return (
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>

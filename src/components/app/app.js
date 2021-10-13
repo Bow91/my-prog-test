@@ -17,7 +17,9 @@ class App extends Component {
         {name: "Николай Сидоров", salary: 950, increase: false, star: false, id: 4},
         {name: "Макар Трофимов", salary: 1050, increase: false, star: false, id: 5},
         {name: "Александр Серов", salary: 1500, increase: false, star: false, id: 6}
-      ]
+        ],
+        search: '',
+        select: 'employees'
     }
     this.maxId = 7;
   }
@@ -46,19 +48,6 @@ class App extends Component {
     })
   }
 
-  // onToggleIncrease = (id) => {
-  //   this.setState(({data}) => {
-  //     const index = data.findIndex(elem => elem.id === id),
-  //           old = data[index],
-  //           newItem = {...old, increase: !old.increase},
-  //           newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
-      
-  //     return {
-  //       data: newArr
-  //     }
-  //   })
-  // }
-
   onToggleProp = (id, prop) => {
     this.setState(({data}) => ({
       data: data.map(item => {
@@ -67,10 +56,54 @@ class App extends Component {
       })
     }))
   }
+
+  searchEmployees = (data, search) => {
+    if (search.length === 0) {
+      return data;
+    }
+    return data.filter(elem => elem.name.indexOf(search) > -1)
+  }
+
+  searchFilter = (data, select) => {
+    switch (select) {
+      case 'star':
+        return data.filter(elem => elem.star === true);
+      case 'increase':
+        return data.filter(elem => elem.increase === true);
+      case 'salary':
+        return data.filter(elem => elem.salary > 1000);
+      default:
+        return data;
+    }
+  }
+
+  onSearchSelect = (select) => {
+    this.setState({select});
+  }
+
+  onUpdateSearch = (search) => {
+    this.setState({search});
+  }
+
+  onSalary = (id, salarys) => {
+    console.log(salarys.match(/\w/gi).join('') + '  -  ' + id);
+    this.setState(({data}) => ({
+      data: data.map(elem => {
+        if (elem.id === id) {
+          return {...elem, salary: +salarys.match(/\w/gi).join('')}
+        }
+      return elem;
+      })
+    }));
+  }
   
   render() {
-    const countEmployees = this.state.data.length,
-          countIncrease = this.state.data.filter(elem => elem.increase === true).length;
+    
+    const {data, search, select} = this.state,
+          countEmployees = data.length,
+          countIncrease = data.filter(elem => elem.increase === true).length,
+          searchVisible = this.searchEmployees(this.searchFilter(data, select), search);
+    
     return (
       <div className="App">
         <AppInfo 
@@ -78,14 +111,17 @@ class App extends Component {
           countIncrease = {countIncrease} />
   
         <div className="search-panel">
-          <SearchPanel />
-          <AppFilter />
+          <SearchPanel onUpdateSearch = {this.onUpdateSearch} />
+          <AppFilter 
+            select = {select}
+            onSearchSelect = {this.onSearchSelect} />
         </div>
   
         <EmployeesList 
-          data = {this.state.data} 
+          data = {searchVisible} 
           onDelete = {this.deleteItem} 
-          onToggleProp = {this.onToggleProp} />
+          onToggleProp = {this.onToggleProp}
+          onSalary = {this.onSalary} />
         <EmployeesAddForm onAddEmployees = {this.addEmployees} />
       </div>
     );
